@@ -64,6 +64,14 @@ def check_fedora_version ():
             # PRINT THE FEDORA VERSION
             print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
 
+        elif os_info.stdout.find("Fedora Linux 43") != -1 :
+
+            # SETTING THE FOUND OS VERSION
+            os_version = "Fedora Linux 43"
+
+            # PRINT THE FEDORA VERSION
+            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
+
         elif os_info.stdout.find("Fedora Linux 42") != -1 :
 
             # SETTING THE FOUND OS VERSION
@@ -96,6 +104,14 @@ def check_fedora_version ():
             # PRINT THE FEDORA VERSION
             print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
 
+        elif os_info.stdout.find("Nobara Linux 43") != -1 :
+
+            # SETTING THE FOUND OS VERSION
+            os_version = "Nobara Linux 43"
+
+            # PRINT THE FEDORA VERSION
+            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
+
         elif os_info.stdout.find("Nobara Linux 42") != -1 :
 
             # SETTING THE FOUND OS VERSION
@@ -116,6 +132,14 @@ def check_fedora_version ():
 
             # SETTING THE FOUND OS VERSION
             os_version = "Ultramarine Linux 41"
+
+            # PRINT THE FEDORA VERSION
+            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
+
+        elif os_info.stdout.find("Ultramarine Linux 43") != -1 :
+
+            # SETTING THE FOUND OS VERSION
+            os_version = "Ultramarine Linux 43"
 
             # PRINT THE FEDORA VERSION
             print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))

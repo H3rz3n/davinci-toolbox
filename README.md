@@ -43,14 +43,15 @@ DaVinci Helper will help you with:
 
 Tested and working on:
 - Fedora Rawhide (experimental)
+- Fedora 43 (all spins)
 - Fedora 42 (all spins)
 - Fedora 41 (all spins)
 - Fedora 40 (all spins)
 - Nobara 41
 - Nobara 40
-- Ultramarine Linux 40 (experimental)
-- Ultramarine Linux 41 (experimental)
 - Ultramarine Linux 42 (experimental)
+- Ultramarine Linux 41 (experimental)
+- Ultramarine Linux 40 (experimental)
 
 ---
 
