@@ -73,7 +73,7 @@ def get_libraries_list ():
 
 
 
-# FUNCTION THAT CHECK WHICH LIBRARIES ARE MISSING IN FEDORA 38-39-40
+# FUNCTION THAT CHECK WHICH LIBRARIES ARE MISSING IN FEDORA 40
 def check_dependencies_40 (library_list_output):
     
     #-----------------------------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ def check_dependencies_40 (library_list_output):
 
 
 
-# FUNCTION THAT CHECK WHICH LIBRARIES ARE MISSING IN FEDORA 38-39-40
+# FUNCTION THAT CHECK WHICH LIBRARIES ARE MISSING IN FEDORA 41-42-43-RAWHIDE
 def check_dependencies_41 (library_list_output):
     
     #-----------------------------------------------------------------------------------------------------
@@ -244,6 +244,12 @@ elif os_version.find("41") != -1 :
 
 # CHECKING IF IS INSTALLED FEDORA 42
 elif os_version.find("42") != -1 :
+
+    # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
+    check_dependencies_41(library_list)
+
+# CHECKING IF IS INSTALLED FEDORA 43
+elif os_version.find("43") != -1 :
 
     # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
     check_dependencies_41(library_list)

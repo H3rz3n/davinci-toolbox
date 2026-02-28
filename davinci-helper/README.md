@@ -13,12 +13,13 @@ DaVinci Helper will help you with :
 
 ## What OSs are currently supported :
 Currently the app was tested only on these OSs :
+- Fedora 43 - All spins
+- Fedora 42 - All spins
+- Fedora 41 - All spins
 - Fedora 40 - All spins
 - Fedora 39 - All spins
 - Fedora 38 - All spins
 - Nobara 40
-- Nobara 39
-- Nobara 38
 
 ## What version of DaVinci are currently supported :
 Currently the app support only DaVinci Resolve 18.x.y. In the future will be added the support for DaVinci Resolve 19.

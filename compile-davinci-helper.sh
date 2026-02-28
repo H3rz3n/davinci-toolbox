@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 clear
-version="2.4.7"
+version="2.4.8"
 
 if [ -d "/home/$USER/build_davinci_helper" ]; then
     rm -rf "/home/$USER/build_davinci_helper"
