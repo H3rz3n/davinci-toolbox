@@ -253,28 +253,3 @@ elif os_version.find("Rawhide") != -1 :
 
     # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
     check_dependencies_41(library_list)
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
