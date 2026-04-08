@@ -2,7 +2,7 @@
 Name:           davinci-helper
 
 # APP VERSION
-Version:        2.4.7
+Version:        2.5.0
 
 # RELEASE AND DISTRIBUTION VERSION
 Release:        1
@@ -34,6 +34,7 @@ BuildRequires: pyproject-rpm-macros
 # DEPENDENCIES REQUIRED FOR EXECUTION
 Requires: gtk4
 Requires: libadwaita
+Requires: python3-gobject
 
 # DISABLING THE AUTOMATIC DEPENDENCIES GENERATOR
 %undefine __python_requires
@@ -90,10 +91,15 @@ install -Dm644 %{_builddir}/%{name}-%{version}/data/polkit/com.davinci.helper.ap
 # POST INSTALLATION OPERATIONS
 %post
 update-desktop-database &> /dev/null || :
-sudo systemctl restart polkit
+if [ -d /run/systemd/system ]; then
+    systemctl restart polkit
+fi
 
 # CHANGELOG OF THE VERSION 
 %changelog
+
+* Fri May 09 2025 Lorenzo Maiuri <lorenzo.maiuri@ik.me> - 2.5.0-1
+- Changes to support a new CI workflow and new release process.
 
 * Thu May 08 2025 Lorenzo Maiuri <lorenzo.maiuri@ik.me> - 2.4.7-1
 - Fixed a major typo in the source code.
@@ -112,6 +118,3 @@ sudo systemctl restart polkit
 
 * Fri Feb 07 2025 Lorenzo Maiuri <lorenzo.maiuri@ik.me> - 2.3.5-1
 - Fixed polkit not restarting after app installation.
-
-
-

@@ -1,0 +1,47 @@
+name: Build and Upload RPM source package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_rpm:
+    name: Build and Upload RPM source package
+    runs-on: ubuntu-latest
+    container:
+      image: "fedora:44"
+      options: --user root
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install build dependencies
+        run: |
+          dnf -y update
+          dnf -y install rpm-build rpmdevtools git findutils \
+            gtk4-devel libadwaita-devel \
+            python3-devel python3-pip python3-setuptools python3-wheel \
+            redhat-rpm-config
+
+      - name: Setup rpmbuild environment
+        run: |
+          mkdir -p ~/rpmbuild/{SOURCES,SPECS,RPMS,BUILD,SRPMS}
+          cp davinci-helper.spec ~/rpmbuild/SPECS/
+
+      - name: Prepare tarball
+        run: |
+          version=$(grep -E '^Version:' davinci-helper.spec | awk '{print $2}')
+          mv davinci-helper davinci-helper-${version}
+          tar -czf ~/rpmbuild/SOURCES/davinci-helper-${version}.tar.gz davinci-helper-${version}
+          mv davinci-helper-${version} davinci-helper
+
+      - name: Build Source RPM
+        run: rpmbuild -bs ~/rpmbuild/SPECS/davinci-helper.spec
+
+      - name: Upload built RPM as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: davinci-helper.src.rpm
+          path: ~/rpmbuild/SRPMS//*.src.rpm          
+        

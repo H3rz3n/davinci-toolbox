@@ -1,0 +1,71 @@
+name: Build and Test davinci-helper RPM
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_rpm:
+    name: Build and Test RPM package
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: "fedora:40"
+            name: fedora-40
+          - distro: "fedora:41"
+            name: fedora-41
+          - distro: "fedora:42"
+            name: fedora-42
+          - distro: "fedora:43"
+            name: fedora-43
+          - distro: "fedora:44"
+            name: fedora-44
+          - distro: "fedora:rawhide"
+            name: fedora-rawhide
+    container:
+      image: ${{ matrix.distro }}
+      options: --user root
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install build dependencies
+        run: |
+          dnf -y update
+          dnf -y install rpm-build rpmdevtools git findutils \
+            gtk4-devel libadwaita-devel \
+            python3-devel python3-pip python3-setuptools python3-wheel \
+            redhat-rpm-config
+
+      - name: Setup rpmbuild environment
+        run: |
+          mkdir -p ~/rpmbuild/{SOURCES,SPECS,RPMS,BUILD,SRPMS}
+          cp davinci-helper.spec ~/rpmbuild/SPECS/
+
+      - name: Prepare tarball
+        run: |
+          version=$(grep -E '^Version:' davinci-helper.spec | awk '{print $2}')
+          mv davinci-helper davinci-helper-${version}
+          tar -czf ~/rpmbuild/SOURCES/davinci-helper-${version}.tar.gz davinci-helper-${version}
+          mv davinci-helper-${version} davinci-helper
+
+      - name: Build RPM
+        run: rpmbuild -bb ~/rpmbuild/SPECS/davinci-helper.spec
+
+      - name: Upload built RPM as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: rpm-${{ matrix.name }}
+          path: ~/rpmbuild/RPMS/noarch/*.rpm
+          retention-days: 1
+
+      - name: Install RPM and dependencies
+        run: dnf -y install ~/rpmbuild/RPMS/noarch/*.rpm
+
+      - name: Test davinci-helper installation
+        run: davinci-helper --version
+        

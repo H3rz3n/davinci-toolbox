@@ -1,38 +1,123 @@
-## What is DaVinci Helper :
-DaVinci Helper is a companion app that will simplify the installation and the use of BlackMagic DaVinci Resolve on Linux. This app is written using Python and has a GUI based on GTK4 and Adwaita. 
+<p align="center">
+  <img src="/screenshot/git_hub_thumbnail.png" alt="Banner" width="600"/>
+</p>
 
-Currently **this program supports only Fedora Linux** in all his spins and derivatives. If the project will receive good feedback by the community I will make a version for Debian-based systems like Linux Mint and Ubuntu.
+> [!WARNING]
+> The project is being completely rewritten in Flutter to enhance performance and expand compatibility with Debian-based systems. All currently open issues will be addressed in the new version. 
 
-## What this app does :
-DaVinci Helper will help you with :
-- The installation of all the necessary dependencies to correctly install and start DaVinci Resolve
-- Starting the official installation wizard
-- Applying all the necessary post install tricks to properly start DaVinci Resolve
-- Installing the necessary GPU drivers to make to correctly use your graphic card with DaVinci Resolve
+## What is DaVinci Helper?
 
+**DaVinci Helper** is a companion app that simplifies the installation and use of BlackMagic DaVinci Resolve (both Free and Studio versions) on Linux.  
+The app is written in Python and features a modern GTK4 + Adwaita interface.
 
-## What OSs are currently supported :
-Currently the app was tested only on these OSs :
-- Fedora 40 - All spins
-- Fedora 39 - All spins
-- Fedora 38 - All spins
+> **Currently, DaVinci Helper officially supports only Fedora Linux** (all spins and derivatives).  
+> If the project receives good feedback, I plan to release a version for Debian-based systems like Ubuntu and Linux Mint.
+
+<p align="center">
+  <img src="/screenshot/01_alt.png" alt="Screenshot"/>
+</p>
+
+---
+
+## Main Features
+
+DaVinci Helper will help you with:
+- Installing all the required dependencies to get DaVinci Resolve running smoothly
+- Launching the official DaVinci Resolve installation wizard
+- Applying essential post-install tweaks so that DaVinci Resolve works out of the box
+- Installing the necessary GPU drivers to ensure your graphics card works correctly with DaVinci Resolve
+- Converting videos for compatibility with DaVinci Resolve Free
+
+---
+
+## Supported DaVinci Resolve Versions
+
+- **DaVinci Resolve 18.x.y**
+- **DaVinci Resolve 19.x.y**
+- **DaVinci Resolve 20.x.y**
+- Both Free and Studio versions are supported.
+
+---
+
+## Supported Operating Systems
+
+Tested and working on:
+- Fedora Rawhide (experimental)
+- Fedora 44 (all spins)
+- Fedora 43 (all spins)
+- Fedora 42 (all spins)
+- Fedora 41 (all spins)
+- Fedora 40 (all spins)
+- Nobara 41
 - Nobara 40
-- Nobara 39
-- Nobara 38
+- Ultramarine Linux 40 (experimental)
+- Ultramarine Linux 41 (experimental)
+- Ultramarine Linux 42 (experimental)
 
-## What version of DaVinci are currently supported :
-Currently the app support only DaVinci Resolve 18.x.y. In the future will be added the support for DaVinci Resolve 19.
+---
 
-## What GPUs are currently supported ?
-In this first releases only Nvidia GPUs will be supported because we don't have any AMD or Intel GPU where to test on. If you have and AMD or Intel GPU and want to support the project please help use testing the drivers or provide as an already working solution.
+## Supported GPUs
 
- ## Supported localization :
- - English
- - Italian
- - French (Coming soon)
- - Spanish (Coming soon)
- - German (Coming soon)
- - Japanese (Coming soon)
+- **Nvidia:** Desktop/mobile GPUs from the 1000 series to 5000 series
+- **AMD:** Dedicated GPUs from 5000 to 9000 series, plus iGPUs 780M, 880M, 890M
+- **Intel:** Intel ARC GPUs and some integrated GPUs
 
-## I want to contribute to the project, what can I do ?
-If you want to contribute to this project you can help us [testing the GPU drivers](https://github.com/H3rz3n/davinci-helper/discussions), translating the app or [making a donation](https://www.paypal.com/donate/?hosted_button_id=CPCG2RFAV82T8) to support the work needed for the maintenance and the continue update to keep up with the latest DaVinci version.
+---
+
+## Supported Languages
+
+- English
+- Italian
+- French (Coming soon)
+- Spanish (Coming soon)
+- German (Coming soon)
+- Japanese (Coming soon)
+
+---
+
+## How to Install DaVinci Helper on Fedora-based Distros
+
+The easiest way to install and keep DaVinci Helper updated is by enabling the project’s COPR repository and installing it via DNF.
+
+### 1. Enable the COPR Repository
+
+Open a terminal and run:
+```
+sudo dnf copr enable -y herzen/davinci-helper
+```
+
+### 2. Install DaVinci Helper
+
+Then, install the app with:
+```
+sudo dnf install -y davinci-helper
+```
+
+
+---
+
+## How to Use DaVinci Helper
+
+A complete, step-by-step tutorial is available [here](https://github.com/H3rz3n/How-install-DaVinci-Resolve-in-Fedora-Linux).
+
+---
+
+## Want to Contribute?
+
+You can help DaVinci Helper grow by:
+- [Testing GPU drivers](https://github.com/H3rz3n/davinci-helper/discussions)
+- Translating the app into your language
+- [Making a donation](https://www.paypal.com/donate/?hosted_button_id=CPCG2RFAV82T8) to support ongoing maintenance and development
+
+---
+
+## Project Roadmap
+
+All details about upcoming features and plans are available on the [Project Roadmap page](https://github.com/H3rz3n/davinci-helper/wiki/Project-roadmap).
+
+---
+
+<br><br><br><br><br><br>
+
+**Tags:**  
+davinci resolve; davinci; resolve; linux; davinci resolve linux; davinci resolve fedora; davinci fedora; how install davinci linux; how install davinci fedora; how fix davinci linux; how fix davinci fedora; davinci fedora error; davinci linux error; fedora error; fedora davinci error; davinci fedora does not start; davinci linux gpu error; davinci fedora gpu error; davinci fedora zlib; davinci fedora mesa-libGLU; davinci fedora libraries; davinci fedora does not start; davinci fedora don't start;

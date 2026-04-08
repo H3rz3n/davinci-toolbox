@@ -7,6 +7,7 @@
 #-----------------------------------------------------------------------------------------------------
 
 # STANDARD MODULES IMPORT
+from pathlib import Path
 import sys, os, subprocess, threading, gettext, locale, re
 
 #-----------------------------------------------------------------------------------------------------
@@ -37,112 +38,49 @@ _ = gettext.gettext
 #-----------------------------------------------------------------------------------------------------
 
 # FUNCTION THAT CHECK WHICH VERSION OF FEDORA IS INSTALLED
-def check_fedora_version ():
+def check_fedora_version () -> str:
+    os_version = None
+    os_release_path = Path("/etc/os-release")
 
-    #-----------------------------------------------------------------------------------------------------
-    
-    # READING WHICH VERSION OF FEDORA IS INSTALLED
-    os_info = subprocess.run("hostnamectl", shell=True, capture_output=True, text=True)
+    try:
+        # For Fedora, Nobara and Ultramarine Linux we can
+        # use a simple OS version detection:
+        # we simply read /etc/os-release, which is formatted like this:
+        # NAME="Fedora Linux"
+        # VERSION="43 (Workstation Edition)"
+        # RELEASE_TYPE=stable
+        # ID=fedora
+        # VERSION_ID=43
+        # [..other stuff..]
+        os_release_text = os_release_path.read_text()
+        os_name = re.findall(r'^NAME="([a-zA-Z" ]+)"', os_release_text)[0]
 
-    # PRINTING IN THE TERMINAL THE RESULT DEPENDING ON WHETHER THERE ARE ERRORS OR NOT
-    if os_info.returncode == 0: 
+        if os_name in ["Fedora Linux", "Nobara Linux", "Ultramarine Linux"]:
+            version_num = re.findall(rf'VERSION_ID=(\d+)', os_release_text)
+            version_num = int(version_num[0])
+            os_version = f"{os_name} {version_num}"
 
-        # CHECKING WHIC VERSION OF FEDORA IS USED
-        if os_info.stdout.find("Fedora Linux 40") != -1 :
-        
-            # SETTING THE FOUND OS VERSION
-            os_version = "Fedora Linux 40"
+        else:
+            os_info = subprocess.run("hostnamectl", capture_output=True, text=True)
+            if ((os_info.stdout).lower()).find("rawhide") != -1 :
+                os_version = "Fedora Linux Rawhide"
 
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-        
-        elif os_info.stdout.find("Fedora Linux 41") != -1 :
-            
-            # SETTING THE FOUND OS VERSION
-            os_version = "Fedora Linux 41"
+        if not os_version:
+            raise RuntimeError("Could not detect OS version in use!")
 
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Fedora Linux 42") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Fedora Linux 42"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif ((os_info.stdout).lower()).find("rawhide") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Fedora Linux Rawhide"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-        
-        elif os_info.stdout.find("Nobara Linux 40") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Nobara Linux 40"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Nobara Linux 41") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Nobara Linux 41"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Nobara Linux 42") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Nobara Linux 42"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Ultramarine Linux 40") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Ultramarine Linux 40"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Ultramarine Linux 41") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Ultramarine Linux 41"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-        elif os_info.stdout.find("Ultramarine Linux 42") != -1 :
-
-            # SETTING THE FOUND OS VERSION
-            os_version = "Ultramarine Linux 42"
-
-            # PRINT THE FEDORA VERSION
-            print(_("You are using a supported OS version : {os_version_placeholder}").format(os_version_placeholder = os_version))
-
-
-        
-
-        # RETURNS VALUE TO THE SCRIPT
+        print(f"You are using a supported OS version : {os_version}")
         return os_version
-        
-    else:
+
+    except Exception as err:
         print(_("DEBUG : There was an error reading what OS is installed :"))
+        print(f"Error: {err}")
         print("")
-        print(os_info.stderr)
-        print("")
+        os_info = locals().get('os_info')
+        if os_info:
+            print(os_info.stderr)
+            print("")
         print(_("Please open an issue report and paste this error code on the project GitHub page :"))
-        print("")
-        print("https://github.com/H3rz3n/davinci-helper/issues")
-        print("")
+        print("https://github.com/H3rz3n/davinci-helper/issues\n")
         exit(1)
 
     #-----------------------------------------------------------------------------------------------------

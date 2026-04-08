@@ -228,53 +228,23 @@ os_version = utility.check_fedora_version()
 # ACQUIRING THE INSTALLED LIBRARIES LIST
 library_list = get_libraries_list()
 
-
-
-# CHECKING IF IS INSTALLED FEDORA 40
-if os_version.find("40") != -1 :
-
-    # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
-    check_dependencies_40(library_list)
-
-# CHECKING IF IS INSTALLED FEDORA 41
-elif os_version.find("41") != -1 :
-
-    # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
-    check_dependencies_41(library_list)
-
-# CHECKING IF IS INSTALLED FEDORA 42
-elif os_version.find("42") != -1 :
-
-    # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
-    check_dependencies_41(library_list)
-
-# CHECKING IF IS INSTALLED FEDORA RAWHIDE
-elif os_version.find("Rawhide") != -1 :
-
-    # EXECUTION OF THE FUNCTION THAT INSTALL THE MISSING DEPENDENCIES
-    check_dependencies_41(library_list)
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+# Install the missing libraries depending on the version of Fedora installed
+match os_version:
+    case version if "40" in version:
+        check_dependencies_40(library_list)
+    case version if "41" in version:
+        check_dependencies_41(library_list)
+    case version if "42" in version:
+        check_dependencies_41(library_list)
+    case version if "43" in version:
+        check_dependencies_41(library_list)
+    case version if "44" in version:
+        check_dependencies_41(library_list)
+    case version if "Rawhide" in version:
+        check_dependencies_41(library_list)
+    case _:
+        print(_("DEBUG : There was an error installing the missing libraries :\n"))
+        print("Could not match the installed version of Fedora with the supported ones.\n")
+        print(_("Please open an issue report and paste this error code on the project GitHub page :\n"))
+        print("https://github.com/H3rz3n/davinci-helper/issues\n")
+        exit(3)

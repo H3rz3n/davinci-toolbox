@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "davinci-helper"
-version = "2.4.0"
+version = "2.5.0"
 description = "A helper app to help you install DaVinci Resolve."
 readme = "README.md"
 license = {text = "GPL-3.0"}
@@ -22,7 +22,7 @@ dependencies = []
 requires-python = ">=3.8"
 
 [project.scripts]
-davinci-helper = "davinci_helper.main:main"
+davinci-helper = "davinci_helper.__main__:main"
 
 [tool.setuptools]
 packages = ["davinci_helper", "davinci_helper.functions", "davinci_helper.functions.logic", "davinci_helper.functions.gui"]
